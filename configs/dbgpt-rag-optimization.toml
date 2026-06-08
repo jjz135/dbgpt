@@ -1,0 +1,64 @@
+# DB-GPT RAG优化配置
+# 解决大量表导致的RAG性能问题和LLM token限制问题
+
+[rag_optimization]
+# 是否启用RAG优化
+enabled = true
+
+# 表过滤参数
+max_tables = 30                    # 最大处理表数量（从原来的几千个减少到30个）
+empty_table_threshold = 0          # 空表阈值（行数小于等于此值的表被忽略）
+small_table_threshold = 100        # 小表阈值
+
+# Chunk优化参数
+max_chunks_total = 200             # 最大chunk总数（从原来的4000+减少到200）
+enable_compact_format = true       # 启用紧凑格式（合并表和字段信息）
+
+# 缓存参数
+cache_duration_hours = 24          # 表分析结果缓存时间（小时）
+enable_cache = true                # 是否启用缓存
+
+# 表优先级权重
+[rag_optimization.priority_weights]
+data_volume = 0.4                  # 数据量权重
+business_relevance = 0.3           # 业务相关性权重
+query_relevance = 0.2              # 查询相关性权重
+recent_activity = 0.1              # 最近活动权重
+
+# 系统表模式（这些表会被忽略）
+[rag_optimization.ignore_patterns]
+system_tables = [
+    "information_schema",
+    "performance_schema", 
+    "mysql",
+    "sys",
+    "pg_catalog",
+    "pg_toast",
+    "__",
+    "sqlite_",
+    "msreplication_",
+    "sysdiagrams",
+    "dtproperties"
+]
+
+# 业务关键词（包含这些词的表会被优先处理）
+[rag_optimization.business_keywords]
+keywords = [
+    "user", "order", "product", "customer", "sales", 
+    "invoice", "payment", "transaction", "account", 
+    "item", "service", "data", "record", "info",
+    "用户", "订单", "产品", "客户", "销售",
+    "发票", "支付", "交易", "账户", "商品", "服务"
+]
+
+# 性能监控
+[rag_optimization.monitoring]
+log_optimization_stats = true      # 记录优化统计信息
+log_chunk_details = false          # 记录详细chunk信息（调试用）
+performance_threshold_seconds = 10  # 性能阈值（秒），超过此时间记录警告
+
+# 兼容性设置
+[rag_optimization.compatibility]
+fallback_to_original = true        # 优化失败时回退到原始方法
+max_retries = 3                    # 最大重试次数
+timeout_seconds = 300              # 超时时间（秒）

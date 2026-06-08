@@ -1,0 +1,902 @@
+[
+  {
+    "NodeId": "i=2257",
+    "DisplayName": "StartTime",
+    "DataType": "DateTime",
+    "Description": "StartTime"
+  },
+  {
+    "NodeId": "i=2258",
+    "DisplayName": "CurrentTime",
+    "DataType": "DateTime",
+    "Description": "CurrentTime"
+  },
+  {
+    "NodeId": "i=2259",
+    "DisplayName": "State",
+    "DataType": "Int32",
+    "Description": "State"
+  },
+  {
+    "NodeId": "i=2267",
+    "DisplayName": "ServiceLevel",
+    "DataType": "Byte",
+    "Description": "ServiceLevel"
+  },
+  {
+    "NodeId": "ns=1;i=123457",
+    "DisplayName": "tmOnlineState",
+    "DataType": "UInt16",
+    "Description": "在线状态"
+  },
+  {
+    "NodeId": "ns=1;i=123458",
+    "DisplayName": "tmVendor",
+    "DataType": "UInt16",
+    "Description": "控制器类别"
+  },
+  {
+    "NodeId": "ns=1;i=123462",
+    "DisplayName": "tmAlarmSTime1",
+    "DataType": "String",
+    "Description": "警报1开始时间"
+  },
+  {
+    "NodeId": "ns=1;i=123463",
+    "DisplayName": "tmAlarmETime1",
+    "DataType": "String",
+    "Description": "警报1结束时间"
+  },
+  {
+    "NodeId": "ns=1;i=1117790",
+    "DisplayName": "tmAlarmState",
+    "DataType": "UInt16",
+    "Description": "警报状态"
+  },
+  {
+    "NodeId": "ns=1;i=123475",
+    "DisplayName": "tmMoldCfgFileDataTime",
+    "DataType": "String",
+    "Description": "模具资料配置文件更新日期"
+  },
+  {
+    "NodeId": "ns=1;i=123471",
+    "DisplayName": "tmUpdateOld",
+    "DataType": "String",
+    "Description": "旧值"
+  },
+  {
+    "NodeId": "ns=1;i=123472",
+    "DisplayName": "tmUpdateNew",
+    "DataType": "String",
+    "Description": "新值"
+  },
+  {
+    "NodeId": "ns=1;i=123473",
+    "DisplayName": "tmUpdateDateTime",
+    "DataType": "String",
+    "Description": "修改时间"
+  },
+  {
+    "NodeId": "ns=1;i=1125380",
+    "DisplayName": "tmMoldCavity",
+    "DataType": "UInt16",
+    "Description": "模穴数"
+  },
+  {
+    "NodeId": "ns=1;i=1117792",
+    "DisplayName": "tmOperateMode",
+    "DataType": "UInt16",
+    "Description": "操作状态"
+  },
+  {
+    "NodeId": "ns=1;i=1117188",
+    "DisplayName": "tmShotCount",
+    "DataType": "UInt32",
+    "Description": "开模序号"
+  },
+  {
+    "NodeId": "ns=1;i=1117789",
+    "DisplayName": "tmMotorState",
+    "DataType": "UInt16",
+    "Description": "马达状态"
+  },
+  {
+    "NodeId": "ns=1;i=1117788",
+    "DisplayName": "tmHeatState",
+    "DataType": "UInt16",
+    "Description": "电热状态"
+  },
+  {
+    "NodeId": "ns=1;i=1117190",
+    "DisplayName": "tmBadShotCount",
+    "DataType": "UInt16",
+    "Description": "不良品开模数"
+  },
+  {
+    "NodeId": "ns=1;i=1117191",
+    "DisplayName": "tmInferior",
+    "DataType": "UInt32",
+    "Description": "次品数"
+  },
+  {
+    "NodeId": "ns=1;i=16983592",
+    "DisplayName": "tmClpOpnPress1",
+    "DataType": "Float",
+    "Description": "开模1段压力"
+  },
+  {
+    "NodeId": "ns=1;i=16983593",
+    "DisplayName": "tmClpOpnPress2",
+    "DataType": "Float",
+    "Description": "开模2段压力"
+  },
+  {
+    "NodeId": "ns=1;i=16983594",
+    "DisplayName": "tmClpOpnPress3",
+    "DataType": "Float",
+    "Description": "开模3段压力"
+  },
+  {
+    "NodeId": "ns=1;i=16983595",
+    "DisplayName": "tmClpOpnPress4",
+    "DataType": "Float",
+    "Description": "开模4段压力"
+  },
+  {
+    "NodeId": "ns=1;i=16983596",
+    "DisplayName": "tmClpOpnPress5",
+    "DataType": "Float",
+    "Description": "开模5段压力"
+  },
+  {
+    "NodeId": "ns=1;i=16982692",
+    "DisplayName": "tmClpOpnSpeed1",
+    "DataType": "Float",
+    "Description": "开模1段速度"
+  },
+  {
+    "NodeId": "ns=1;i=16982693",
+    "DisplayName": "tmClpOpnSpeed2",
+    "DataType": "Float",
+    "Description": "开模2段速度"
+  },
+  {
+    "NodeId": "ns=1;i=16982694",
+    "DisplayName": "tmClpOpnSpeed3",
+    "DataType": "Float",
+    "Description": "开模3段速度"
+  },
+  {
+    "NodeId": "ns=1;i=16982695",
+    "DisplayName": "tmClpOpnSpeed4",
+    "DataType": "Float",
+    "Description": "开模4段速度"
+  },
+  {
+    "NodeId": "ns=1;i=16982696",
+    "DisplayName": "tmClpOpnSpeed5",
+    "DataType": "Float",
+    "Description": "开模5段速度"
+  },
+  {
+    "NodeId": "ns=1;i=16983092",
+    "DisplayName": "tmClpOpnPosi1",
+    "DataType": "Float",
+    "Description": "开模1段位置"
+  },
+  {
+    "NodeId": "ns=1;i=16983093",
+    "DisplayName": "tmClpOpnPosi2",
+    "DataType": "Float",
+    "Description": "开模2段位置"
+  },
+  {
+    "NodeId": "ns=1;i=16983094",
+    "DisplayName": "tmClpOpnPosi3",
+    "DataType": "Float",
+    "Description": "开模3段位置"
+  },
+  {
+    "NodeId": "ns=1;i=16983095",
+    "DisplayName": "tmClpOpnPosi4",
+    "DataType": "Float",
+    "Description": "开模4段位置"
+  },
+  {
+    "NodeId": "ns=1;i=16983096",
+    "DisplayName": "tmClpOpnPosi5",
+    "DataType": "Float",
+    "Description": "开模5段位置"
+  },
+  {
+    "NodeId": "ns=1;i=16983098",
+    "DisplayName": "tmClpClsPress_C1",
+    "DataType": "Float",
+    "Description": "关模1段压力"
+  },
+  {
+    "NodeId": "ns=1;i=16918056",
+    "DisplayName": "tmClpClsPress1",
+    "DataType": "Float",
+    "Description": "关模1段压力"
+  },
+  {
+    "NodeId": "ns=1;i=16918057",
+    "DisplayName": "tmClpClsPress2",
+    "DataType": "Float",
+    "Description": "关模2段压力"
+  },
+  {
+    "NodeId": "ns=1;i=16918058",
+    "DisplayName": "tmClpClsPress3",
+    "DataType": "Float",
+    "Description": "关模3段压力"
+  },
+  {
+    "NodeId": "ns=1;i=16918059",
+    "DisplayName": "tmClpClsPress4",
+    "DataType": "Float",
+    "Description": "关模4段压力"
+  },
+  {
+    "NodeId": "ns=1;i=16918060",
+    "DisplayName": "tmClpClsPress5",
+    "DataType": "Float",
+    "Description": "关模5段压力"
+  },
+  {
+    "NodeId": "ns=1;i=16917156",
+    "DisplayName": "tmClpClsSpeed1",
+    "DataType": "Float",
+    "Description": "关模1段速度"
+  },
+  {
+    "NodeId": "ns=1;i=16917157",
+    "DisplayName": "tmClpClsSpeed2",
+    "DataType": "Float",
+    "Description": "关模2段速度"
+  },
+  {
+    "NodeId": "ns=1;i=16917158",
+    "DisplayName": "tmClpClsSpeed3",
+    "DataType": "Float",
+    "Description": "关模3段速度"
+  },
+  {
+    "NodeId": "ns=1;i=16917159",
+    "DisplayName": "tmClpClsSpeed4",
+    "DataType": "Float",
+    "Description": "关模4段速度"
+  },
+  {
+    "NodeId": "ns=1;i=16917160",
+    "DisplayName": "tmClpClsSpeed5",
+    "DataType": "Float",
+    "Description": "关模5段速度"
+  },
+  {
+    "NodeId": "ns=1;i=16917556",
+    "DisplayName": "tmClpClsPosi1",
+    "DataType": "Float",
+    "Description": "关模1段位置"
+  },
+  {
+    "NodeId": "ns=1;i=16917557",
+    "DisplayName": "tmClpClsPosi2",
+    "DataType": "Float",
+    "Description": "关模2段位置"
+  },
+  {
+    "NodeId": "ns=1;i=16917558",
+    "DisplayName": "tmClpClsPosi3",
+    "DataType": "Float",
+    "Description": "关模3段位置"
+  },
+  {
+    "NodeId": "ns=1;i=16917559",
+    "DisplayName": "tmClpClsPosi4",
+    "DataType": "Float",
+    "Description": "关模4段位置"
+  },
+  {
+    "NodeId": "ns=1;i=50603560",
+    "DisplayName": "tmInjPress1",
+    "DataType": "Float",
+    "Description": "射出1段压力"
+  },
+  {
+    "NodeId": "ns=1;i=50603561",
+    "DisplayName": "tmInjPress2",
+    "DataType": "Float",
+    "Description": "射出2段压力"
+  },
+  {
+    "NodeId": "ns=1;i=50603562",
+    "DisplayName": "tmInjPress3",
+    "DataType": "Float",
+    "Description": "射出3段压力"
+  },
+  {
+    "NodeId": "ns=1;i=50602660",
+    "DisplayName": "tmInjSpeed1",
+    "DataType": "Float",
+    "Description": "射出1段速度"
+  },
+  {
+    "NodeId": "ns=1;i=50602661",
+    "DisplayName": "tmInjSpeed2",
+    "DataType": "Float",
+    "Description": "射出2段速度"
+  },
+  {
+    "NodeId": "ns=1;i=50602662",
+    "DisplayName": "tmInjSpeed3",
+    "DataType": "Float",
+    "Description": "射出3段速度"
+  },
+  {
+    "NodeId": "ns=1;i=50603060",
+    "DisplayName": "tmInjPosi1",
+    "DataType": "Float",
+    "Description": "射出1段位置"
+  },
+  {
+    "NodeId": "ns=1;i=50603061",
+    "DisplayName": "tmInjPosi2",
+    "DataType": "Float",
+    "Description": "射出2段位置"
+  },
+  {
+    "NodeId": "ns=1;i=50669096",
+    "DisplayName": "tmInjBackPress",
+    "DataType": "Float",
+    "Description": "射退压力"
+  },
+  {
+    "NodeId": "ns=1;i=50668196",
+    "DisplayName": "tmInjBackSpeed",
+    "DataType": "Float",
+    "Description": "射退速度"
+  },
+  {
+    "NodeId": "ns=1;i=51127348",
+    "DisplayName": "tmInj2HoldPosn",
+    "DataType": "Float",
+    "Description": "射出转保压位置"
+  },
+  {
+    "NodeId": "ns=1;i=51126848",
+    "DisplayName": "tmInj2HoldTime",
+    "DataType": "Float",
+    "Description": "射出转保压时间"
+  },
+  {
+    "NodeId": "ns=1;i=17900097",
+    "DisplayName": "tmCoolingTime",
+    "DataType": "Float",
+    "Description": "模具冷却时间"
+  },
+  {
+    "NodeId": "ns=1;i=68232744",
+    "DisplayName": "tmChargePress1",
+    "DataType": "Float",
+    "Description": "储料1段压力"
+  },
+  {
+    "NodeId": "ns=1;i=68232745",
+    "DisplayName": "tmChargePress2",
+    "DataType": "Float",
+    "Description": "储料2段压力"
+  },
+  {
+    "NodeId": "ns=1;i=68232746",
+    "DisplayName": "tmChargePress3",
+    "DataType": "Float",
+    "Description": "储料3段压力"
+  },
+  {
+    "NodeId": "ns=1;i=68232844",
+    "DisplayName": "tmChargeBackPress1",
+    "DataType": "Float",
+    "Description": "储料1段背压"
+  },
+  {
+    "NodeId": "ns=1;i=68232845",
+    "DisplayName": "tmChargeBackPress2",
+    "DataType": "Float",
+    "Description": "储料2段背压"
+  },
+  {
+    "NodeId": "ns=1;i=68232846",
+    "DisplayName": "tmChargeBackPress3",
+    "DataType": "Float",
+    "Description": "储料3段背压"
+  },
+  {
+    "NodeId": "ns=1;i=68231844",
+    "DisplayName": "tmChargeSpeed1",
+    "DataType": "Float",
+    "Description": "储料1段速度"
+  },
+  {
+    "NodeId": "ns=1;i=68231845",
+    "DisplayName": "tmChargeSpeed2",
+    "DataType": "Float",
+    "Description": "储料2段速度"
+  },
+  {
+    "NodeId": "ns=1;i=68231846",
+    "DisplayName": "tmChargeSpeed3",
+    "DataType": "Float",
+    "Description": "储料3段速度"
+  },
+  {
+    "NodeId": "ns=1;i=68232244",
+    "DisplayName": "tmChargePosi1",
+    "DataType": "Float",
+    "Description": "储料1段位置"
+  },
+  {
+    "NodeId": "ns=1;i=68232245",
+    "DisplayName": "tmChargePosi2",
+    "DataType": "Float",
+    "Description": "储料2段位置"
+  },
+  {
+    "NodeId": "ns=1;i=68232246",
+    "DisplayName": "tmChargePosi3",
+    "DataType": "Float",
+    "Description": "储料3段位置"
+  },
+  {
+    "NodeId": "ns=1;i=69281421",
+    "DisplayName": "tmChargeBackPressB2",
+    "DataType": "Float",
+    "Description": "储料2段背压B"
+  },
+  {
+    "NodeId": "ns=1;i=69280421",
+    "DisplayName": "tmChargeSpeedB2",
+    "DataType": "Float",
+    "Description": "储料2段速度B"
+  },
+  {
+    "NodeId": "ns=1;i=33826344",
+    "DisplayName": "tmEjectAdvPress1",
+    "DataType": "Float",
+    "Description": "托模进1段压力"
+  },
+  {
+    "NodeId": "ns=1;i=33826345",
+    "DisplayName": "tmEjectAdvPress2",
+    "DataType": "Float",
+    "Description": "托模进2段压力"
+  },
+  {
+    "NodeId": "ns=1;i=33825444",
+    "DisplayName": "tmEjectAdvSpeed1",
+    "DataType": "Float",
+    "Description": "托模进1段速度"
+  },
+  {
+    "NodeId": "ns=1;i=33825445",
+    "DisplayName": "tmEjectAdvSpeed2",
+    "DataType": "Float",
+    "Description": "托模进2段速度"
+  },
+  {
+    "NodeId": "ns=1;i=33825844",
+    "DisplayName": "tmEjectAdvPosi1",
+    "DataType": "Float",
+    "Description": "托模进1段位置"
+  },
+  {
+    "NodeId": "ns=1;i=33825845",
+    "DisplayName": "tmEjectAdvPosi2",
+    "DataType": "Float",
+    "Description": "托模进2段位置"
+  },
+  {
+    "NodeId": "ns=1;i=33825344",
+    "DisplayName": "tmEjectAdvDelayTime",
+    "DataType": "Float",
+    "Description": "托模进延迟时间"
+  },
+  {
+    "NodeId": "ns=1;i=33891880",
+    "DisplayName": "tmEjectRetPress1",
+    "DataType": "Float",
+    "Description": "托模退1段压力"
+  },
+  {
+    "NodeId": "ns=1;i=33891881",
+    "DisplayName": "tmEjectRetPress2",
+    "DataType": "Float",
+    "Description": "托模退2段压力"
+  },
+  {
+    "NodeId": "ns=1;i=33890980",
+    "DisplayName": "tmEjectRetSpeed1",
+    "DataType": "Float",
+    "Description": "托模退1段速度"
+  },
+  {
+    "NodeId": "ns=1;i=33890981",
+    "DisplayName": "tmEjectRetSpeed2",
+    "DataType": "Float",
+    "Description": "托模退2段速度"
+  },
+  {
+    "NodeId": "ns=1;i=33891380",
+    "DisplayName": "tmEjectRetPosi1",
+    "DataType": "Float",
+    "Description": "托模退1段位置"
+  },
+  {
+    "NodeId": "ns=1;i=33891381",
+    "DisplayName": "tmEjectRetPosi2",
+    "DataType": "Float",
+    "Description": "托模退2段位置"
+  },
+  {
+    "NodeId": "ns=1;i=33890880",
+    "DisplayName": "tmEjectRetDelayTime",
+    "DataType": "Float",
+    "Description": "托模退延迟时间"
+  },
+  {
+    "NodeId": "ns=1;i=84157992",
+    "DisplayName": "tmNozzleAdvPress1",
+    "DataType": "Float",
+    "Description": "座台进1段压力"
+  },
+  {
+    "NodeId": "ns=1;i=84157993",
+    "DisplayName": "tmNozzleAdvPress2",
+    "DataType": "Float",
+    "Description": "座台进2段压力"
+  },
+  {
+    "NodeId": "ns=1;i=84157092",
+    "DisplayName": "tmNozzleAdvSpeed1",
+    "DataType": "Float",
+    "Description": "座台进1段速度"
+  },
+  {
+    "NodeId": "ns=1;i=84157093",
+    "DisplayName": "tmNozzleAdvSpeed2",
+    "DataType": "Float",
+    "Description": "座台进2段速度"
+  },
+  {
+    "NodeId": "ns=1;i=84223528",
+    "DisplayName": "tmNozzleRetPress1",
+    "DataType": "Float",
+    "Description": "座台退1段压力"
+  },
+  {
+    "NodeId": "ns=1;i=84222628",
+    "DisplayName": "tmNozzleRetSpeed1",
+    "DataType": "Float",
+    "Description": "座台退1段速度"
+  },
+  {
+    "NodeId": "ns=1;i=84223028",
+    "DisplayName": "tmNozzleRetPosi1",
+    "DataType": "Float",
+    "Description": "座台退1段位置"
+  },
+  {
+    "NodeId": "ns=1;i=135334536",
+    "DisplayName": "tmTemp1_Current",
+    "DataType": "Float",
+    "Description": "实际温度1"
+  },
+  {
+    "NodeId": "ns=1;i=135334537",
+    "DisplayName": "tmTemp2_Current",
+    "DataType": "Float",
+    "Description": "实际温度2"
+  },
+  {
+    "NodeId": "ns=1;i=135334538",
+    "DisplayName": "tmTemp3_Current",
+    "DataType": "Float",
+    "Description": "实际温度3"
+  },
+  {
+    "NodeId": "ns=1;i=135334539",
+    "DisplayName": "tmTemp4_Current",
+    "DataType": "Float",
+    "Description": "实际温度4"
+  },
+  {
+    "NodeId": "ns=1;i=135334540",
+    "DisplayName": "tmTemp5_Current",
+    "DataType": "Float",
+    "Description": "实际温度5"
+  },
+  {
+    "NodeId": "ns=1;i=135334897",
+    "DisplayName": "tmTempOil_Current",
+    "DataType": "Float",
+    "Description": "油温"
+  },
+  {
+    "NodeId": "ns=1;i=135342608",
+    "DisplayName": "tmTemp1_Set",
+    "DataType": "Float",
+    "Description": "设定温度1"
+  },
+  {
+    "NodeId": "ns=1;i=135342609",
+    "DisplayName": "tmTemp2_Set",
+    "DataType": "Float",
+    "Description": "设定温度2"
+  },
+  {
+    "NodeId": "ns=1;i=135342610",
+    "DisplayName": "tmTemp3_Set",
+    "DataType": "Float",
+    "Description": "设定温度3"
+  },
+  {
+    "NodeId": "ns=1;i=135342611",
+    "DisplayName": "tmTemp4_Set",
+    "DataType": "Float",
+    "Description": "设定温度4"
+  },
+  {
+    "NodeId": "ns=1;i=135342612",
+    "DisplayName": "tmTemp5_Set",
+    "DataType": "Float",
+    "Description": "设定温度5"
+  },
+  {
+    "NodeId": "ns=1;i=135342613",
+    "DisplayName": "tmTemp6_Set",
+    "DataType": "Float",
+    "Description": "设定温度6"
+  },
+  {
+    "NodeId": "ns=1;i=135342614",
+    "DisplayName": "tmTemp7_Set",
+    "DataType": "Float",
+    "Description": "设定温度7"
+  },
+  {
+    "NodeId": "ns=1;i=135342615",
+    "DisplayName": "tmTemp8_Set",
+    "DataType": "Float",
+    "Description": "设定温度8"
+  },
+  {
+    "NodeId": "ns=1;i=135342616",
+    "DisplayName": "tmTemp9_Set",
+    "DataType": "Float",
+    "Description": "设定温度9"
+  },
+  {
+    "NodeId": "ns=1;i=151266856",
+    "DisplayName": "tmCoreAInPress",
+    "DataType": "Float",
+    "Description": "中子A进压力"
+  },
+  {
+    "NodeId": "ns=1;i=151266857",
+    "DisplayName": "tmCoreBInPress",
+    "DataType": "Float",
+    "Description": "中子B进压力"
+  },
+  {
+    "NodeId": "ns=1;i=151266858",
+    "DisplayName": "tmCoreCInPress",
+    "DataType": "Float",
+    "Description": "中子C进压力"
+  },
+  {
+    "NodeId": "ns=1;i=151332392",
+    "DisplayName": "tmCoreAOutPress",
+    "DataType": "Float",
+    "Description": "中子A退压力"
+  },
+  {
+    "NodeId": "ns=1;i=151332393",
+    "DisplayName": "tmCoreBOutPress",
+    "DataType": "Float",
+    "Description": "中子B退压力"
+  },
+  {
+    "NodeId": "ns=1;i=151332394",
+    "DisplayName": "tmCoreCOutPress",
+    "DataType": "Float",
+    "Description": "中子C退压力"
+  },
+  {
+    "NodeId": "ns=1;i=151265956",
+    "DisplayName": "tmCoreAInSpeed",
+    "DataType": "Float",
+    "Description": "中子A进速度"
+  },
+  {
+    "NodeId": "ns=1;i=151265957",
+    "DisplayName": "tmCoreBInSpeed",
+    "DataType": "Float",
+    "Description": "中子B进速度"
+  },
+  {
+    "NodeId": "ns=1;i=151265958",
+    "DisplayName": "tmCoreCInSpeed",
+    "DataType": "Float",
+    "Description": "中子C进速度"
+  },
+  {
+    "NodeId": "ns=1;i=151331492",
+    "DisplayName": "tmCoreAOutSpeed",
+    "DataType": "Float",
+    "Description": "中子A退速度"
+  },
+  {
+    "NodeId": "ns=1;i=151331493",
+    "DisplayName": "tmCoreBOutSpeed",
+    "DataType": "Float",
+    "Description": "中子B退速度"
+  },
+  {
+    "NodeId": "ns=1;i=151331494",
+    "DisplayName": "tmCoreCOutSpeed",
+    "DataType": "Float",
+    "Description": "中子C退速度"
+  },
+  {
+    "NodeId": "ns=1;i=151265856",
+    "DisplayName": "tmCoreAInTime",
+    "DataType": "Float",
+    "Description": "中子A进时间"
+  },
+  {
+    "NodeId": "ns=1;i=151265857",
+    "DisplayName": "tmCoreBInTime",
+    "DataType": "Float",
+    "Description": "中子B进时间"
+  },
+  {
+    "NodeId": "ns=1;i=151265858",
+    "DisplayName": "tmCoreCInTime",
+    "DataType": "Float",
+    "Description": "中子C进时间"
+  },
+  {
+    "NodeId": "ns=1;i=151331392",
+    "DisplayName": "tmCoreAOutTime",
+    "DataType": "Float",
+    "Description": "中子A退时间"
+  },
+  {
+    "NodeId": "ns=1;i=151331393",
+    "DisplayName": "tmCoreBOutTime",
+    "DataType": "Float",
+    "Description": "中子B退时间"
+  },
+  {
+    "NodeId": "ns=1;i=151331394",
+    "DisplayName": "tmCoreCOutTime",
+    "DataType": "Float",
+    "Description": "中子C退时间"
+  },
+  {
+    "NodeId": "ns=1;i=17902596",
+    "DisplayName": "tmClpMoveOption",
+    "DataType": "Float",
+    "Description": "移模方式"
+  },
+  {
+    "NodeId": "ns=1;i=17049129",
+    "DisplayName": "tmClpMoveLPress",
+    "DataType": "Float",
+    "Description": "左移模压力"
+  },
+  {
+    "NodeId": "ns=1;i=17049130",
+    "DisplayName": "tmClpMoveLSPress",
+    "DataType": "Float",
+    "Description": "左移模慢速压力"
+  },
+  {
+    "NodeId": "ns=1;i=17048228",
+    "DisplayName": "tmClpMoveLSpeed",
+    "DataType": "Float",
+    "Description": "左移模速度"
+  },
+  {
+    "NodeId": "ns=1;i=17573417",
+    "DisplayName": "tmLocatorPress",
+    "DataType": "Float",
+    "Description": "定位压力"
+  },
+  {
+    "NodeId": "ns=1;i=1114738",
+    "DisplayName": "tmCycleTime",
+    "DataType": "Float",
+    "Description": "循环时间"
+  },
+  {
+    "NodeId": "ns=1;i=1114739",
+    "DisplayName": "tmClpClsTime",
+    "DataType": "Float",
+    "Description": "关模时间"
+  },
+  {
+    "NodeId": "ns=1;i=1114740",
+    "DisplayName": "tmInjTime",
+    "DataType": "Float",
+    "Description": "射出时间"
+  },
+  {
+    "NodeId": "ns=1;i=1114741",
+    "DisplayName": "tmTurnTime",
+    "DataType": "Float",
+    "Description": "转保压时间"
+  },
+  {
+    "NodeId": "ns=1;i=1114742",
+    "DisplayName": "tmChargeTime",
+    "DataType": "Float",
+    "Description": "储料时间"
+  },
+  {
+    "NodeId": "ns=1;i=1114743",
+    "DisplayName": "tmClpOpnTime",
+    "DataType": "Float",
+    "Description": "开模时间"
+  },
+  {
+    "NodeId": "ns=1;i=1114744",
+    "DisplayName": "tmInjBackTime",
+    "DataType": "Float",
+    "Description": "射退时间"
+  },
+  {
+    "NodeId": "ns=1;i=1114746",
+    "DisplayName": "tmFetchTime",
+    "DataType": "Float",
+    "Description": "取件时间"
+  },
+  {
+    "NodeId": "ns=1;i=1114747",
+    "DisplayName": "tmClpOpnPosi",
+    "DataType": "Float",
+    "Description": "开模位置"
+  },
+  {
+    "NodeId": "ns=1;i=1115208",
+    "DisplayName": "tmInjStartPosi",
+    "DataType": "Float",
+    "Description": "射出起点"
+  },
+  {
+    "NodeId": "ns=1;i=1115209",
+    "DisplayName": "tmInjEndPosi",
+    "DataType": "Float",
+    "Description": "射出终点"
+  },
+  {
+    "NodeId": "ns=1;i=1115210",
+    "DisplayName": "tmTurnPosi",
+    "DataType": "Float",
+    "Description": "转保压位置"
+  },
+  {
+    "NodeId": "ns=1;i=1115211",
+    "DisplayName": "tmInjMoni",
+    "DataType": "Float",
+    "Description": "射出监控"
+  },
+  {
+    "NodeId": "ns=1;i=2163316",
+    "DisplayName": "tmInjTimeB",
+    "DataType": "Float",
+    "Description": "射出时间B"
+  }
+]

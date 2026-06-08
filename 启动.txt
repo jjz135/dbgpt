@@ -1,0 +1,1 @@
+.\.venv\Scripts\python.exe -m dbgpt.cli.cli_scripts start webserver --config configs/dbgpt-proxy-tongyi.toml
