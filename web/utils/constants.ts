@@ -314,4 +314,9 @@ export const dbMapper: Record<DBType, { label: string; icon: string; desc: strin
     icon: '/icons/tugraph.png',
     desc: 'TuGraph is a high-performance graph database jointly developed by Ant Group and Tsinghua University.',
   },
+  dm: {
+    label: 'DM (Dameng)',
+    icon: '/icons/dm.png',
+    desc: 'Enterprise-grade relational database with DM driver (pyodbc/dmPython).',
+  },
 };

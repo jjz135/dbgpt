@@ -27,6 +27,7 @@ export type DBType =
   | 'redis'
   | 'cassandra'
   | 'couchbase'
+  | 'dm'
   | (string & {});
 
 export type IChatDbSchema = {

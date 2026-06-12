@@ -259,10 +259,31 @@ class OptimizedDBSchemaAssembler(BaseAssembler):
 
     def _get_table_row_count(self, table_name: str) -> int:
         """获取表的行数"""
+        # Check if connector has DM-specific method
+        if hasattr(self._connector, 'get_table_row_count'):
+            return self._connector.get_table_row_count(table_name)
+        
+        # Fallback to dialect-specific SQL
         try:
             with self._connector.session_scope() as session:
                 from sqlalchemy import text
-                result = session.execute(text(f"SELECT COUNT(*) FROM `{table_name}`"))
+                dialect = getattr(self._connector, 'dialect', 'mysql')
+                
+                if dialect == 'dm':
+                    # DM requires double quotes and schema specification
+                    schema = self._connector._engine.url.database
+                    if schema:
+                        result = session.execute(
+                            text(f'SELECT COUNT(*) FROM "{schema}"."{table_name}"')
+                        )
+                    else:
+                        result = session.execute(
+                            text(f'SELECT COUNT(*) FROM "{table_name}"')
+                        )
+                else:
+                    # MySQL fallback with backticks
+                    result = session.execute(text(f"SELECT COUNT(*) FROM `{table_name}`"))
+                
                 return result.fetchone()[0]
         except Exception:
             return 0
@@ -363,14 +384,58 @@ class OptimizedDBSchemaAssembler(BaseAssembler):
         """获取紧凑的表信息"""
         try:
             with self._connector.session_scope() as session:
-                # 获取列信息
-                from sqlalchemy import text
-                result = session.execute(text(f"DESCRIBE `{table_name}`"))
-                columns = result.fetchall()
-                
-                # 获取行数
-                result = session.execute(text(f"SELECT COUNT(*) FROM `{table_name}`"))
-                row_count = result.fetchone()[0]
+                # Check if connector has DM-specific describe method
+                if hasattr(self._connector, 'describe_table'):
+                    columns = self._connector.describe_table(table_name)
+                else:
+                    # Fallback to MySQL DESCRIBE - only for MySQL databases
+                    dialect = getattr(self._connector, 'dialect', 'mysql')
+                    from sqlalchemy import text
+                    if dialect == 'dm':
+                        # DM doesn't support DESCRIBE or backticks
+                        query = text("""
+                            SELECT 
+                                column_name,
+                                data_type,
+                                CASE WHEN nullable = 'Y' THEN 'YES' ELSE 'NO' END as nullable,
+                                '' as "key",
+                                data_default,
+                                '' as extra
+                            FROM all_tab_columns
+                            WHERE table_name = :table_name
+                            ORDER BY column_id
+                        """)
+                        result = session.execute(query, {"table_name": table_name.upper()})
+                    else:
+                        # MySQL fallback
+                        result = session.execute(text(f"DESCRIBE `{table_name}`"))
+                    columns = result.fetchall()
+                    
+                if not columns:
+                    logger.warning(f"No columns found for table {table_name}")
+                    return None
+                    
+                # Get row count using DM-specific method if available
+                if hasattr(self._connector, 'get_table_row_count'):
+                    row_count = self._connector.get_table_row_count(table_name)
+                else:
+                    dialect = getattr(self._connector, 'dialect', 'mysql')
+                    from sqlalchemy import text
+                    if dialect == 'dm':
+                        # DM requires double quotes and schema specification
+                        schema = self._connector._engine.url.database
+                        if schema:
+                            result = session.execute(
+                                text(f'SELECT COUNT(*) FROM "{schema}"."{table_name}"')
+                            )
+                        else:
+                            result = session.execute(
+                                text(f'SELECT COUNT(*) FROM "{table_name}"')
+                            )
+                    else:
+                        # MySQL fallback
+                        result = session.execute(text(f"SELECT COUNT(*) FROM `{table_name}`"))
+                    row_count = result.fetchone()[0]
                 
                 # 生成紧凑的表描述
                 content = self._format_compact_table_description(

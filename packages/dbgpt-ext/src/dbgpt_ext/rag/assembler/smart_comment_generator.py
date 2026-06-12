@@ -136,25 +136,47 @@ class SmartCommentGenerator:
     async def _get_table_structure(self, connector: BaseConnector, table_name: str) -> List[Dict[str, Any]]:
         """获取表结构信息"""
         try:
-            with connector.session_scope() as session:
-                # 获取列信息
-                from sqlalchemy import text
-                result = session.execute(text(f"DESCRIBE `{table_name}`"))
-                columns = result.fetchall()
+            # Check if connector has DM-specific describe method
+            if hasattr(connector, 'describe_table'):
+                columns = connector.describe_table(table_name)
+            else:
+                # Fallback to MySQL DESCRIBE - only for MySQL databases
+                dialect = getattr(connector, 'dialect', 'mysql')
+                with connector.session_scope() as session:
+                    from sqlalchemy import text
+                    if dialect == 'dm':
+                        # DM doesn't support DESCRIBE or backticks
+                        query = text("""
+                            SELECT 
+                                column_name,
+                                data_type,
+                                CASE WHEN nullable = 'Y' THEN 'YES' ELSE 'NO' END as nullable,
+                                '' as "key",
+                                data_default,
+                                '' as extra
+                            FROM all_tab_columns
+                            WHERE table_name = :table_name
+                            ORDER BY column_id
+                        """)
+                        result = session.execute(query, {"table_name": table_name.upper()})
+                    else:
+                        # MySQL fallback
+                        result = session.execute(text(f"DESCRIBE `{table_name}`"))
+                    columns = result.fetchall()
                 
-                structure = []
-                for col in columns:
-                    structure.append({
-                        "field": col[0],
-                        "type": col[1],
-                        "null": col[2],
-                        "key": col[3],
-                        "default": col[4],
-                        "extra": col[5] if len(col) > 5 else ""
-                    })
+            structure = []
+            for col in columns:
+                structure.append({
+                    "field": col[0],
+                    "type": col[1],
+                    "null": col[2],
+                    "key": col[3],
+                    "default": col[4],
+                    "extra": col[5] if len(col) > 5 else ""
+                })
                 
-                return structure
-                
+            return structure
+                    
         except Exception as e:
             logger.warning(f"获取表 {table_name} 结构失败: {e}")
             return []
@@ -177,6 +199,9 @@ class SmartCommentGenerator:
             elif dialect == 'oracle':
                 limit_clause = f"WHERE ROWNUM <= {limit}"
                 table_quote = f'"{table_name}"'
+            elif dialect == 'dm':  # Dameng database
+                limit_clause = f"FETCH FIRST {limit} ROWS ONLY"
+                table_quote = f'"{table_name}"'
             else:
                 limit_clause = f"LIMIT {limit}"
                 table_quote = f"`{table_name}`"
@@ -185,6 +210,8 @@ class SmartCommentGenerator:
             if dialect == 'mssql' or dialect == 'sqlserver':
                 sql = f"SELECT {limit_clause} * FROM {table_quote}"
             elif dialect == 'oracle':
+                sql = f"SELECT * FROM {table_quote} {limit_clause}"
+            elif dialect == 'dm':
                 sql = f"SELECT * FROM {table_quote} {limit_clause}"
             else:
                 sql = f"SELECT * FROM {table_quote} {limit_clause}"
