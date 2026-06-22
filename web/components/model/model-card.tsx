@@ -1,6 +1,6 @@
 import { apiInterceptors, stopModel } from '@/client/api';
 import { IModelData } from '@/types/model';
-import { MODEL_ICON_MAP } from '@/utils';
+import { MODEL_ICON_MAP, getModelLabel } from '@/utils';
 import { PauseCircleOutlined } from '@ant-design/icons';
 import { message } from 'antd';
 import moment from 'moment';
@@ -41,7 +41,7 @@ function ModelCard({ info }: Props) {
   return (
     <GptCard
       className='w-96'
-      title={info.model_name}
+      title={getModelLabel(info.model_name)}
       tags={[
         {
           text: info.healthy ? 'Healthy' : 'Unhealthy',

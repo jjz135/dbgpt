@@ -4,7 +4,7 @@ import { UserInfoResponse } from '@/types/userinfo';
 import { getUserId } from '@/utils';
 import { STORAGE_THEME_KEY } from '@/utils/constants/index';
 import { useRequest } from 'ahooks';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { createContext, useEffect, useState } from 'react';
 
 type ThemeMode = 'dark' | 'light';
@@ -76,10 +76,12 @@ const ChatContext = createContext<IChatContext>({
 });
 
 const ChatContextProvider = ({ children }: { children: React.ReactElement }) => {
-  const searchParams = useSearchParams();
-  const chatId = searchParams?.get('id') ?? '';
-  const scene = searchParams?.get('scene') ?? '';
-  const db_param = searchParams?.get('db_param') ?? '';
+  const router = useRouter();
+  
+  // Use router.query for Pages Router instead of useSearchParams
+  const chatId = (router.query?.id as string) ?? '';
+  const scene = (router.query?.scene as string) ?? '';
+  const db_param = (router.query?.db_param as string) ?? '';
   const [isContract, setIsContract] = useState(false);
   const [model, setModel] = useState<string>('');
   const [isMenuExpand, setIsMenuExpand] = useState<boolean>(scene !== 'chat_dashboard');

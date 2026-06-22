@@ -208,9 +208,9 @@ const ChatSider: React.FC<{
         <Flex flex={1} vertical={true} className='overflow-y-auto'>
           <MenuItem
             item={{
-              label: t('assistant'),
+              label: 'JQAI智能中枢平台',
               key: 'default',
-              icon: <Image src='/LOGO_SMALL.png' alt='default' width={24} height={24} className='flex-1' />,
+              icon: <Image src='/JQI.png' alt='default' width={24} height={24} className='flex-1' />,
               default: true,
             }}
             order={order}

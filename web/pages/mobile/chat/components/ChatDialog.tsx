@@ -1,5 +1,6 @@
 import ModelIcon from '@/new-components/chat/content/ModelIcon';
 import { IChatDialogueMessageSchema } from '@/types/chat';
+import { getModelLabel } from '@/utils/constants';
 import { Divider } from 'antd';
 import cls from 'classnames';
 import dynamic from 'next/dynamic';
@@ -119,7 +120,7 @@ const ChatDialog: React.FC<{
             {scene !== 'chat_agent' && (
               <div className='flex gap-1 items-center'>
                 <ModelIcon width={14} height={14} model={model_name} />
-                <span className='text-xs text-gray-500'>{model_name}</span>
+                <span className='text-xs text-gray-500'>{getModelLabel(model_name)}</span>
               </div>
             )}
           </div>

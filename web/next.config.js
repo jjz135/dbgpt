@@ -5,10 +5,18 @@ const path = require("path");
 const nextConfig = {
   experimental: {
     esmExternals: "loose",
+    // 禁用 worker threads，使用进程池
+    workerThreads: false,
+    // 增加页面数据收集超时
+    pageDataCollectionTimeout: 60000,
   },
   typescript: {
     ignoreBuildErrors: true,
   },
+  // 降低并行度，避免 Static worker SIGTERM 错误
+  parallelism: 1,
+  // 增加构建超时时间
+  staticPageGenerationTimeout: 120,
   env: {
     API_BASE_URL: process.env.API_BASE_URL,
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
@@ -27,6 +35,19 @@ const nextConfig = {
       ...config.resolve.alias,
       'd3-color': path.join(__dirname, 'node_modules/d3-color'),
     };
+    
+    // 优化构建性能，减少内存占用
+    if (!isServer) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          maxInitialRequests: 10,
+          maxSize: 244 * 1024,
+        },
+      };
+    }
+    
     if (!isServer) {
       config.plugins.push(
         new CopyPlugin({

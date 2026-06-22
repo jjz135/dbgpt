@@ -12,7 +12,7 @@ import { getInitMessage, transformFileUrl } from '@/utils';
 import { useAsyncEffect, useRequest } from 'ahooks';
 import { Flex, Layout, Spin } from 'antd';
 import dynamic from 'next/dynamic';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 const DbEditor = dynamic(() => import('@/components/chat/db-editor'), {
@@ -78,17 +78,26 @@ export const ChatContentContext = createContext<ChatContentProps>({
 });
 
 const Chat: React.FC = () => {
+  const router = useRouter();
+
+  // Ensure we're on the client side before accessing context
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const { model, currentDialogInfo } = useContext(ChatContext);
   const { isContract, setIsContract, setIsMenuExpand } = useContext(ChatContext);
   const { chat, ctrl } = useChat({
     app_code: currentDialogInfo.app_code || '',
   });
 
-  const searchParams = useSearchParams();
-  const chatId = searchParams?.get('id') ?? '';
-  const scene = searchParams?.get('scene') ?? '';
-  const knowledgeId = searchParams?.get('knowledge_id') ?? '';
-  const dbName = searchParams?.get('db_name') ?? '';
+  // Use router.query for Pages Router instead of useSearchParams
+  const chatId = (router.query?.id as string) ?? '';
+  const scene = (router.query?.scene as string) ?? '';
+  const knowledgeId = (router.query?.knowledge_id as string) ?? '';
+  const dbName = (router.query?.db_name as string) ?? '';
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const order = useRef<number>(1);
@@ -363,6 +372,11 @@ const Chat: React.FC = () => {
       );
     }
   };
+
+  // Don't render until we're on the client - moved after all hooks
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <ChatContentContext.Provider

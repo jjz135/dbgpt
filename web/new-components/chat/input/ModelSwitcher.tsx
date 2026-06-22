@@ -6,6 +6,7 @@ import React, { memo, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import ModelIcon from '../content/ModelIcon';
+import { getModelLabel } from '@/utils/constants';
 
 const ModelSwitcher: React.FC = () => {
   const { modelList } = useContext(ChatContext);
@@ -42,7 +43,7 @@ const ModelSwitcher: React.FC = () => {
         <Select.Option key={item}>
           <div className='flex items-center'>
             <ModelIcon model={item} />
-            <span className='ml-2'>{item}</span>
+            <span className='ml-2'>{getModelLabel(item)}</span>
           </div>
         </Select.Option>
       ))}

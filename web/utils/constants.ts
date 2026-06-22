@@ -1,6 +1,6 @@
 import { ModelType } from '@/types/chat';
 import { DBType } from '@/types/db';
-import { ModelIconInfo } from '@/types/models';
+import { ModelIconInfo } from '@/types/model';
 
 export const DEFAULT_ICON_URL = '/models/huggingface.svg';
 export const STATIC_DISPLAY_NAME = 'jingjiang';
@@ -16,6 +16,11 @@ export const MODEL_ICON_MAP: Record<ModelType, { label: string; icon: string }> 
 });
 
 export const MODEL_ICON_INFO: Record<string, ModelIconInfo> = {
+    jqi: {
+    label: 'JQAI智能中枢平台',
+    icon: '/models/JQI.png',
+    patterns: ['qwen-plus'],
+  },
   deepseek: {
     label: 'DeepSeek',
     icon: '/models/deepseek.png',
@@ -152,6 +157,11 @@ export function getModelLabel(modelId: string): string {
     const modelInfo = MODEL_ICON_INFO[key];
 
     if (modelInfo.patterns && modelInfo.patterns.some(pattern => formattedModelId.includes(pattern.toLowerCase()))) {
+      // For JQI platform, return exact label without any suffix
+      if (key === 'jqi') {
+        return modelInfo.label;
+      }
+
       // Try to extract version information from the model ID
       const versionMatch = modelId.match(/[-_](\d+b|\d+\.\d+b?|v\d+(\.\d+)?)/i);
       const sizePart = modelId.match(/[-_](\d+b)/i);

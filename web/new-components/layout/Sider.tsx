@@ -89,9 +89,11 @@ const Sider: React.FC = () => {
             <Image src={LOGO_IMAGE_PATH} alt={STATIC_DISPLAY_NAME} width={180} height={40} />
           </Link>
           <div></div>
-          <div className='flex flex-col'>
-            <UserBar />
-            <div className='flex items-start justify-between border-t border-dashed border-gray-200 dark:border-gray-700'>
+          <div className='flex flex-col gap-3'>
+            <div className='px-2 py-3 bg-white/50 dark:bg-gray-800/50 rounded-lg backdrop-blur-sm shadow-sm'>
+              <UserBar />
+            </div>
+            <div className='flex items-start justify-between border-t border-dashed border-gray-200 dark:border-gray-700 pt-3'>
               {settings.map(item => (
                 <Popover key={item.key} content={item.name}>
                   <div

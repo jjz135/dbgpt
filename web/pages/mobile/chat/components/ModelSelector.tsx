@@ -1,5 +1,6 @@
 import { ChatContext } from '@/app/chat-context';
 import ModelIcon from '@/new-components/chat/content/ModelIcon';
+import { getModelLabel } from '@/utils/constants';
 import { SwapOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Popover } from 'antd';
@@ -22,7 +23,7 @@ const ModelSelector: React.FC = () => {
               }}
             >
               <ModelIcon width={14} height={14} model={item} />
-              <span className='text-xs'>{item}</span>
+              <span className='text-xs'>{getModelLabel(item)}</span>
             </div>
           ),
           key: item,
@@ -49,7 +50,7 @@ const ModelSelector: React.FC = () => {
               maxWidth: 96,
             }}
           >
-            {model}
+            {getModelLabel(model)}
           </span>
           <SwapOutlined rotate={90} />
         </div>

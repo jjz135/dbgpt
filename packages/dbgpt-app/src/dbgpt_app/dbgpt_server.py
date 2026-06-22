@@ -54,6 +54,7 @@ system_app = SystemApp(app)
 
 def mount_routers(app: FastAPI):
     """Lazy import to avoid high time cost"""
+    from dbgpt_app.auth_service import router as auth_router
     from dbgpt_app.knowledge.api import router as knowledge_router
     from dbgpt_app.openapi.api_v1.api_v1 import router as api_v1
     from dbgpt_app.openapi.api_v1.editor.api_editor_v1 import (
@@ -64,6 +65,9 @@ def mount_routers(app: FastAPI):
     from dbgpt_serve.agent.app.controller import router as gpts_v1
     from dbgpt_serve.agent.app.endpoints import router as app_v2
 
+    # Add authentication router
+    app.include_router(auth_router, prefix="/api", tags=["Authentication"])
+    
     app.include_router(api_v1, prefix="/api", tags=["Chat"])
     app.include_router(api_v2, prefix="/api", tags=["ChatV2"])
     app.include_router(api_editor_route_v1, prefix="/api", tags=["Editor"])
@@ -81,27 +85,75 @@ def mount_routers(app: FastAPI):
 
 
 def mount_static_files(app: FastAPI, param: ApplicationConfig):
-    if param.service.web.new_web_ui:
-        static_file_path = os.path.join(ROOT_PATH, "src", "dbgpt_app/static/web")
-    else:
-        static_file_path = os.path.join(ROOT_PATH, "src", "dbgpt_app/static/old_web")
+    # Mount digital twin UI if enabled
+    if param.service.web.digital_twin_ui:
+        digital_twin_path = os.path.join(ROOT_PATH, "src", "dbgpt_app/static/digital_twin")
+        if os.path.exists(digital_twin_path):
+            logger.info(f"Mounting digital twin UI from: {digital_twin_path}")
+            
+            # Mount static assets directory FIRST (mount has higher priority than routes)
+            app.mount(
+                "/assets",
+                StaticFiles(directory=os.path.join(digital_twin_path, "assets"), html=False),
+                name="digital_twin_assets",
+            )
+            
+            # Serve index.html for root and all other routes (SPA support)
+            from fastapi.responses import HTMLResponse
+            
+            @app.get("/")
+            async def serve_digital_twin_root():
+                index_file = os.path.join(digital_twin_path, "index.html")
+                if os.path.exists(index_file):
+                    with open(index_file, "r", encoding="utf-8") as f:
+                        return HTMLResponse(content=f.read())
+                return HTMLResponse(content="<h1>Digital Twin UI not found</h1>", status_code=404)
+            
+            # Catch-all route for SPA - only handle non-API, non-static paths
+            @app.api_route("/{path:path}", methods=["GET"])
+            async def serve_digital_twin_spa(path: str):
+                # Skip API routes, static assets, and other special paths
+                if (path.startswith("api/") or 
+                    path.startswith("knowledge/") or 
+                    path.startswith("assets/") or
+                    path.startswith("images/") or
+                    path.startswith("_next/") or
+                    path.startswith("swagger_static/")):
+                    # Return 404 for these paths so they can be handled by other routers/mounts
+                    from fastapi import HTTPException
+                    raise HTTPException(status_code=404, detail="Not found")
+                
+                index_file = os.path.join(digital_twin_path, "index.html")
+                if os.path.exists(index_file):
+                    with open(index_file, "r", encoding="utf-8") as f:
+                        return HTMLResponse(content=f.read())
+                return HTMLResponse(content="<h1>Page not found</h1>", status_code=404)
+        else:
+            logger.warning(f"Digital twin UI path not found: {digital_twin_path}")
+    
+    # Mount default web UI if digital twin is not enabled
+    if not param.service.web.digital_twin_ui:
+        if param.service.web.new_web_ui:
+            static_file_path = os.path.join(ROOT_PATH, "src", "dbgpt_app/static/web")
+        else:
+            static_file_path = os.path.join(ROOT_PATH, "src", "dbgpt_app/static/old_web")
 
-    os.makedirs(STATIC_MESSAGE_IMG_PATH, exist_ok=True)
-    app.mount(
-        "/images",
-        StaticFiles(directory=STATIC_MESSAGE_IMG_PATH, html=True),
-        name="static2",
-    )
-    app.mount(
-        "/_next/static", StaticFiles(directory=static_file_path + "/_next/static")
-    )
-    app.mount("/", StaticFiles(directory=static_file_path, html=True), name="static")
+        os.makedirs(STATIC_MESSAGE_IMG_PATH, exist_ok=True)
+        app.mount(
+            "/images",
+            StaticFiles(directory=STATIC_MESSAGE_IMG_PATH, html=True),
+            name="static2",
+        )
+        app.mount(
+            "/_next/static", StaticFiles(directory=static_file_path + "/_next/static")
+        )
+        app.mount("/", StaticFiles(directory=static_file_path, html=True), name="static")
 
-    app.mount(
-        "/swagger_static",
-        StaticFiles(directory=static_file_path),
-        name="swagger_static",
-    )
+        app.mount(
+            "/swagger_static",
+            StaticFiles(directory=static_file_path),
+            name="swagger_static",
+        )
 
 
 add_exception_handler(app)

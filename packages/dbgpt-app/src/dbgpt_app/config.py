@@ -306,6 +306,10 @@ class ServiceWebParameters(BaseParameters):
         default=True,
         metadata={"help": _("Whether to use the new web UI, default is True")},
     )
+    digital_twin_ui: bool = field(
+        default=False,
+        metadata={"help": _("Whether to use the digital twin UI with login, default is False")},
+    )
     model_cache: ModelCacheParameters = field(
         default_factory=ModelCacheParameters,
         metadata={"help": _("Model cache configuration")},

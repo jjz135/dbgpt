@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import type { GridCellRenderer, Index, IndexRange } from 'react-virtualized';
 import { AutoSizer, Grid, InfiniteLoader } from 'react-virtualized';
 
+import { AuthContext } from '@/app/auth-context';
 import { ChatContext } from '@/app/chat-context';
 import IconFont from '@/new-components/common/Icon';
 import BlurredCard from '@/new-components/common/blurredCard';
@@ -21,13 +22,29 @@ import moment from 'moment';
 const Playground: NextPage = () => {
   const router = useRouter();
   const { t } = useTranslation();
+  const [mounted, setMounted] = useState(false);
   const { setAgent, setCurrentDialogInfo, model } = useContext(ChatContext);
+  const authContext = useContext(AuthContext);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // 检查登录状态，如果未登录则跳转到登录页面
+  useEffect(() => {
+    if (authContext && !authContext.isAuthenticated) {
+      console.log('检测到未登录，跳转到登录页面...');
+      router.replace('/login');
+    }
+  }, [authContext?.isAuthenticated, router]);
 
   // 每次访问首页都自动跳转到知识库聊天界面
   useEffect(() => {
-    console.log('检测到首页访问，立即跳转到知识库聊天界面...');
-    router.replace('/chat');
-  }, []);
+    if (authContext?.isAuthenticated) {
+      console.log('检测到已登录，跳转到知识库聊天界面...');
+      router.replace('/chat');
+    }
+  }, [authContext?.isAuthenticated]);
 
   const [activeKey, setActiveKey] = useState<string>('all');
   const [apps, setApps] = useState<any>({
@@ -115,20 +132,16 @@ const Playground: NextPage = () => {
             const index = code ? apps.app_list.findIndex((item: any) => item.app_code === code) : -1;
             if (index !== -1) {
               const finallyIndex = Math.floor(index / 12) * 12;
-              setApps(
-                {
-                  app_list: apps.app_list.toSpliced(finallyIndex, 12, ...res.app_list) || [],
-                  total_count: res?.total_count || 0,
-                } || {},
-              );
+              setApps({
+                app_list: apps.app_list.toSpliced(finallyIndex, 12, ...res.app_list),
+                total_count: res?.total_count || 0,
+              });
             } else {
               console.log('concat');
-              setApps(
-                {
-                  app_list: apps.app_list.concat(res?.app_list) || [],
-                  total_count: res?.total_count || 0,
-                } || {},
-              );
+              setApps({
+                app_list: apps.app_list.concat(res?.app_list),
+                total_count: res?.total_count || 0,
+              });
             }
           }
         }
@@ -285,6 +298,11 @@ const Playground: NextPage = () => {
   // useEffect(() => {
   //   getAppListFn();
   // }, [getAppListFn, pageNo]);
+
+  // Don't render until mounted on client - moved after all hooks
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div

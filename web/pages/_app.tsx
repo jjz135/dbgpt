@@ -1,3 +1,4 @@
+import { AuthProvider, useAuth } from '@/app/auth-context';
 import { ChatContext, ChatContextProvider } from '@/app/chat-context';
 import SideBar from '@/components/layout/side-bar';
 import FloatHelper from '@/new-components/layout/FloatHelper';
@@ -55,39 +56,35 @@ function CssWrapper({ children }: { children: React.ReactElement }) {
 function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const { isMenuExpand, mode } = useContext(ChatContext);
   const { i18n } = useTranslation();
-  const [isLogin, setIsLogin] = useState(false);
+  const { isAuthenticated, loading } = useAuth();
 
   const router = useRouter();
 
-  // 登录检测
-  const handleAuth = async () => {
-    setIsLogin(false);
-    // 如果已有登录信息，直接展示首页
-    // if (localStorage.getItem(STORAGE_USERINFO_KEY)) {
-    //   setIsLogin(true);
-    //   return;
-    // }
-
-    // MOCK User info
-    const user = {
-      user_channel: `admin`,
-      user_no: `001`,
-      nick_name: STATIC_DISPLAY_NAME,
-    };
-    if (user) {
-      // 强制清除旧的用户信息
-      localStorage.removeItem(STORAGE_USERINFO_KEY);
-      localStorage.setItem(STORAGE_USERINFO_KEY, JSON.stringify(user));
-      localStorage.setItem(STORAGE_USERINFO_VALID_TIME_KEY, Date.now().toString());
-      setIsLogin(true);
-    }
-  };
-
+  // 检查登录状态，如果未登录则跳转到登录页面
   useEffect(() => {
-    handleAuth();
-  }, []);
+    if (!loading && !isAuthenticated) {
+      console.log('检测到未登录，跳转到登录页面...');
+      router.replace('/login');
+    }
+  }, [loading, isAuthenticated, router]);
 
-  if (!isLogin) {
+  // 正在加载时显示加载中
+  if (loading) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        fontSize: '16px'
+      }}>
+        加载中...
+      </div>
+    );
+  }
+
+  // 未登录时不渲染内容（会跳转到登录页）
+  if (!isAuthenticated) {
     return null;
   }
 
@@ -128,13 +125,30 @@ function LayoutWrapper({ children }: { children: React.ReactNode }) {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  
+  // 如果是登录页面，不需要布局
+  if (router.pathname === '/login') {
+    return (
+      <ChatContextProvider>
+        <AuthProvider>
+          <CssWrapper>
+            <Component {...pageProps} />
+          </CssWrapper>
+        </AuthProvider>
+      </ChatContextProvider>
+    );
+  }
+  
   return (
     <ChatContextProvider>
-      <CssWrapper>
-        <LayoutWrapper>
-          <Component {...pageProps} />
-        </LayoutWrapper>
-      </CssWrapper>
+      <AuthProvider>
+        <CssWrapper>
+          <LayoutWrapper>
+            <Component {...pageProps} />
+          </LayoutWrapper>
+        </CssWrapper>
+      </AuthProvider>
     </ChatContextProvider>
   );
 }

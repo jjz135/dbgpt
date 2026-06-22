@@ -6,6 +6,8 @@ export type PostUserAddParams = {
   role?: Role;
   nick_name?: string;
   email?: string;
+  phone?: string;
+  username?: string;
   user_id?: string;
 };
 

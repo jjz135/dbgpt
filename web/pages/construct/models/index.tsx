@@ -3,7 +3,7 @@ import ModelForm from '@/components/model/model-form';
 import BlurredCard, { InnerDropdown } from '@/new-components/common/blurredCard';
 import ConstructLayout from '@/new-components/layout/Construct';
 import { IModelData } from '@/types/model';
-import { getModelIcon } from '@/utils/constants';
+import { getModelIcon, getModelLabel } from '@/utils/constants';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Modal, Tag, message } from 'antd';
 import moment from 'moment';
@@ -151,7 +151,7 @@ function Models() {
                   </div>
                 </div>
               }
-              name={item.model_name}
+              name={getModelLabel(item.model_name)}
               key={item.model_name}
               RightTop={
                 <InnerDropdown
